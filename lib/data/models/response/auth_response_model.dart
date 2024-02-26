@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 class AuthResponseModel {
-    final User? user;
-    final String? token;
+    final User user;
+    final String token;
 
     AuthResponseModel({
-        this.user,
-        this.token,
+        required this.user,
+        required this.token,
     });
 
     factory AuthResponseModel.fromJson(String str) => AuthResponseModel.fromMap(json.decode(str));
@@ -14,12 +14,12 @@ class AuthResponseModel {
     String toJson() => json.encode(toMap());
 
     factory AuthResponseModel.fromMap(Map<String, dynamic> json) => AuthResponseModel(
-        user: json["user"] == null ? null : User.fromMap(json["user"]),
+        user: User.fromMap(json["user"]),
         token: json["token"],
     );
 
     Map<String, dynamic> toMap() => {
-        "user": user?.toMap(),
+        "user": user.toMap(),
         "token": token,
     };
 }

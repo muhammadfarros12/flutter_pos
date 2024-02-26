@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pos/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_pos/data/datasources/auth_remote_datasource.dart';
 import 'package:flutter_pos/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:flutter_pos/presentation/auth/pages/login_page.dart';
+import 'package:flutter_pos/presentation/home/bloc/logout/logout_bloc.dart';
 import 'package:flutter_pos/presentation/home/pages/dashboard_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,8 +20,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(AuthRemoteDataSource()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDataSource()),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(AuthRemoteDataSource()),
+        ),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
@@ -40,7 +49,16 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const LoginPage(),
+        // home: const LoginPage(),
+        home: FutureBuilder(
+            future: AuthLocalDatasource().isAuth(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data == true) {
+                return const DashboardPage();
+              } else {
+                return const LoginPage();
+              }
+            }),
         // home: const DashboardPage(),
       ),
     );
