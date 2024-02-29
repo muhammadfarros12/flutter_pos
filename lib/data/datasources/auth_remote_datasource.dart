@@ -10,7 +10,7 @@ class AuthRemoteDataSource {
     String password,
   ) async {
     final response = await http.post(
-        Uri.parse('${Variables.baseUrl}login'),
+        Uri.parse('${Variables.baseUrl}/api/login'),
         body: {'email': email, 'password': password}
         );
         if (response.statusCode == 200) {
@@ -23,7 +23,7 @@ class AuthRemoteDataSource {
   ) async {
     final authData = await AuthLocalDatasource().getAuthData();
     final response = await http.post(
-        Uri.parse('${Variables.baseUrl}logout'),
+        Uri.parse('${Variables.baseUrl}/api/logout'),
         headers: {
           'Authorization' : "Bearer ${authData.token}"
         }

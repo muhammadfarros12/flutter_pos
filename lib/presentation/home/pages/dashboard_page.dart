@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pos/data/datasources/auth_local_datasource.dart';
-import 'package:flutter_pos/presentation/auth/pages/login_page.dart';
-import 'package:flutter_pos/presentation/home/bloc/logout/logout_bloc.dart';
 import 'package:flutter_pos/presentation/home/pages/home_page.dart';
 import 'package:flutter_pos/presentation/settings/pages/setting_page.dart';
 
@@ -46,29 +42,6 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('dashboard'),
-        actions: [
-          BlocConsumer<LogoutBloc, LogoutState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                  orElse: () {},
-                  success: () {
-                    AuthLocalDatasource().removeAuthData();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const LoginPage()));
-                  });
-            },
-            builder: (context, state) {
-              return IconButton(
-                  onPressed: () {
-                    context.read<LogoutBloc>().add(const LogoutEvent.logout());
-                  },
-                  icon: const Icon(Icons.logout));
-            },
-          )
-        ],
-      ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20.0),

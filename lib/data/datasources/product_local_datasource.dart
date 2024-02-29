@@ -23,13 +23,13 @@ class ProductLocalDatasource {
 
   Future<void> _createDb(Database db, int version) async {
     await db.execute("""
-    CREATE TABLE $tableProducts(
-      id INTEGER PRIMARY KEY AUTO INCREAMENT,
-      name TEXT,
-      price INTEGER,
-      stock INTEGER,
-      image TEXT,
-      category TEXT
+    CREATE TABLE $tableProducts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        price INTEGER,
+        stock INTEGER,
+        category TEXT,
+        image TEXT
     )
     """);
   }
@@ -47,11 +47,19 @@ class ProductLocalDatasource {
     await db.delete(tableProducts);
   }
 
-  Future<void> insertProduct(List<Product> products) async {
+  Future<void> insertAllProduct(List<Product> products) async {
     final db = await instance.database;
     for (var product in products) {
       await db.insert(tableProducts, product.toMap());
     }
+    
+  }
+
+  Future<List<Product>> getAllProduct() async {
+    final db = await instance.database;
+    final result = await db.query(tableProducts);
+    print('coba simpan local data');
+    return result.map((e) => Product.fromMap(e)).toList();
   }
 
 }

@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class ProductResponseModel {
@@ -37,9 +36,9 @@ class Product {
     final int stock;
     final String category;
     final String image;
-    final DateTime createdAt;
-    final DateTime updatedAt;
-    final int isBestSeller;
+    final DateTime? createdAt;
+    final DateTime? updatedAt;
+    // final int isBestSeller;
 
     Product({
         required this.id,
@@ -49,9 +48,9 @@ class Product {
         required this.stock,
         required this.category,
         required this.image,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.isBestSeller,
+        this.createdAt,
+        this.updatedAt,
+        // required this.isBestSeller,
     });
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
@@ -67,22 +66,15 @@ class Product {
         category: json["category"],
         // category: categoryValues.map[json["category"]]!,
         image: json["image"] ?? " ",
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        isBestSeller: json["is_best_seller"],
     );
 
     Map<String, dynamic> toMap() => {
-        "id": id,
         "name": name,
-        "description": description,
         "price": price,
         "stock": stock,
-        "category": categoryValues.reverse[category],
+        "category": category,
         "image": image,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "is_best_seller": isBestSeller,
+        
     };
 }
 

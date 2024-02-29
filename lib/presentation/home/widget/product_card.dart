@@ -47,6 +47,7 @@ class ProductCard extends StatelessWidget {
               //   fit: BoxFit.cover,
               // ),
               child: CachedNetworkImage(
+                height: 100,
                 imageUrl: "${Variables.imageBaseUrl}${data.image}",
                 placeholder: (context, url) => const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.food_bank, size: 40,),
@@ -60,7 +61,7 @@ class ProductCard extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           const SpaceHeight(8.0),

@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class ProductRemoteDatasource {
   Future<Either<String, ProductResponseModel>> getProduct() async{
     final authData = await AuthLocalDatasource().getAuthData();
-    final response = await http.get(Uri.parse('${Variables.baseUrl}products'),
+    final response = await http.get(Uri.parse('${Variables.baseUrl}/api/products'),
     headers: {
       'Authorization' : 'Bearer ${authData.token}'
     }
