@@ -55,7 +55,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        // home: const LoginPage(),
         home: FutureBuilder<bool>(
             future: AuthLocalDatasource().isAuth(),
             builder: (context, snapshot) {
@@ -63,11 +62,11 @@ class MyApp extends StatelessWidget {
                 return const DashboardPage();
               } else {
                 print(snapshot.hasData);
+                print(snapshot.data);
                 print("gagal simpan session");
                 return const LoginPage();
               }
             }),
-        // home: const DashboardPage(),
       ),
     );
   }

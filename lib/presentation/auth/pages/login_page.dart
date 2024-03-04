@@ -80,12 +80,10 @@ class _LoginPageState extends State<LoginPage> {
           BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
               state.maybeWhen(
-                orElse: () {
-                  print('salah masuk----------------------------');
-                },
+                orElse: () {},
                 success: (authResponseModel) {
-                  print('berhasil masuk--------------------------------------------------------');
                   AuthLocalDatasource().saveAuthData(authResponseModel);
+                  print('harusnya kesimpan sih tokennya');
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
