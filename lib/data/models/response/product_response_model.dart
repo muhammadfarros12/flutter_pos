@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
+
 class ProductResponseModel {
     final bool success;
     final String message;
@@ -29,28 +31,30 @@ class ProductResponseModel {
 }
 
 class Product {
-    final int id;
+    final int? id;
     final String name;
-    final String description;
+    final String? description;
     final int price;
     final int stock;
     final String category;
     final String image;
     final DateTime? createdAt;
     final DateTime? updatedAt;
-    // final int isBestSeller;
+    final bool isBestSeller;
+    final bool isSync;
 
     Product({
-        required this.id,
+        this.id,
         required this.name,
-        required this.description,
+        this.description,
         required this.price,
         required this.stock,
         required this.category,
         required this.image,
         this.createdAt,
         this.updatedAt,
-        // required this.isBestSeller,
+        this.isBestSeller = false,
+        this.isSync = true,
     });
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
@@ -66,6 +70,9 @@ class Product {
         category: json["category"],
         // category: categoryValues.map[json["category"]]!,
         image: json["image"] ?? " ",
+        isBestSeller: json["isBestSeller"] == 1 ? true : false,
+        isSync: json["isSync"] == null ? true : json["isSync"] == 1 ? true : false,
+
     );
 
     Map<String, dynamic> toMap() => {
@@ -74,30 +81,35 @@ class Product {
         "stock": stock,
         "category": category,
         "image": image,
-        
+        "is_best_seller": isBestSeller ? 1 : 0,
+        "is_sync": isSync ? 1 : 0,
     };
-}
 
-enum Category {
-    DRINK,
-    FOOD,
-    SNACK
-}
-
-final categoryValues = EnumValues({
-    "drink": Category.DRINK,
-    "food": Category.FOOD,
-    "snack": Category.SNACK
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }
+  Product copyWith({
+    int? id,
+    String? name,
+    ValueGetter<String?>? description,
+    int? price,
+    int? stock,
+    String? category,
+    String? image,
+    ValueGetter<DateTime?>? createdAt,
+    ValueGetter<DateTime?>? updatedAt,
+    bool? isBestSeller,
+    bool? isSync,
+  }) {
+    return Product(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description != null ? description() : this.description,
+      price: price ?? this.price,
+      stock: stock ?? this.stock,
+      category: category ?? this.category,
+      image: image ?? this.image,
+      createdAt: createdAt != null ? createdAt() : this.createdAt,
+      updatedAt: updatedAt != null ? updatedAt() : this.updatedAt,
+      isBestSeller: isBestSeller ?? this.isBestSeller,
+      isSync: isSync ?? this.isSync,
+    );
+  }
 }
