@@ -8,6 +8,6 @@ class ProductEvent with _$ProductEvent {
   // fetch local
   const factory ProductEvent.fetchLocal() = _FetchLocal;
 
-  const factory ProductEvent.addProduct(Product product) = _AddProduct;
+  const factory ProductEvent.addProduct(Product product, XFile image) = _AddProduct;
 
 }

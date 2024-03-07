@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos/extensions/string_ext.dart';
 import 'package:flutter_pos/presentation/settings/model/category_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../components/buttons.dart';
 import '../../../components/custom_dropdown.dart';
@@ -27,7 +28,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
   String category = 'food';
 
-  File? imageFile;
+  XFile? imageFile;
 
   bool isBestSeller = false;
 
@@ -156,11 +157,10 @@ class _AddProductPageState extends State<AddProductPage> {
                         stock: stock,
                         category: category,
                         isBestSeller: isBestSeller,
-                        image: imageFile!.path,
-                        isSync: false);
+                        image: imageFile!.path,);
                     context
                         .read<ProductBloc>()
-                        .add(ProductEvent.addProduct(product));
+                        .add(ProductEvent.addProduct(product, imageFile!));
                   },
                   label: 'Simpan',
                 );

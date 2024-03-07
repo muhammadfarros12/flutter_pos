@@ -41,7 +41,6 @@ class Product {
     final DateTime? createdAt;
     final DateTime? updatedAt;
     final bool isBestSeller;
-    final bool isSync;
 
     Product({
         this.id,
@@ -53,8 +52,7 @@ class Product {
         required this.image,
         this.createdAt,
         this.updatedAt,
-        this.isBestSeller = false,
-        this.isSync = true,
+        this.isBestSeller = false
     });
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
@@ -71,7 +69,6 @@ class Product {
         // category: categoryValues.map[json["category"]]!,
         image: json["image"] ?? " ",
         isBestSeller: json["isBestSeller"] == 1 ? true : false,
-        isSync: json["isSync"] == null ? true : json["isSync"] == 1 ? true : false,
 
     );
 
@@ -82,7 +79,6 @@ class Product {
         "category": category,
         "image": image,
         "is_best_seller": isBestSeller ? 1 : 0,
-        "is_sync": isSync ? 1 : 0,
     };
 
   Product copyWith({
@@ -96,7 +92,6 @@ class Product {
     ValueGetter<DateTime?>? createdAt,
     ValueGetter<DateTime?>? updatedAt,
     bool? isBestSeller,
-    bool? isSync,
   }) {
     return Product(
       id: id ?? this.id,
@@ -109,7 +104,6 @@ class Product {
       createdAt: createdAt != null ? createdAt() : this.createdAt,
       updatedAt: updatedAt != null ? updatedAt() : this.updatedAt,
       isBestSeller: isBestSeller ?? this.isBestSeller,
-      isSync: isSync ?? this.isSync,
     );
   }
 }
