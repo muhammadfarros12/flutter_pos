@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pos/presentation/home/pages/home_page.dart';
+import 'package:flutter_pos/presentation/order/pages/order_page.dart';
 import 'package:flutter_pos/presentation/settings/pages/setting_page.dart';
 
 import '../../../constants/colors.dart';
@@ -21,11 +22,9 @@ class _DashboardPageState extends State<DashboardPage> {
     //   child: Text('Dasboard'),
     // ),
     const HomePage(),
+    const OrderPage(),
     const Center(
       child: Text('History'),
-    ),
-    const Center(
-      child: Text('Order'),
     ),
     // const Center(
     //   child: Text('Menu'),

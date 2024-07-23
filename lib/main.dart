@@ -9,6 +9,7 @@ import 'package:flutter_pos/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:flutter_pos/presentation/home/bloc/logout/logout_bloc.dart';
 import 'package:flutter_pos/presentation/home/bloc/product/product_bloc.dart';
 import 'package:flutter_pos/presentation/home/pages/dashboard_page.dart';
+import 'package:flutter_pos/presentation/order/bloc/bloc/order_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'constants/colors.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
             ..add(const ProductEvent.fetchLocal()),
         ),
         BlocProvider(create: (context) => CheckoutBloc()),
+        BlocProvider(create: (context) => OrderBloc()),
       ],
       child: MaterialApp(
         theme: ThemeData(
