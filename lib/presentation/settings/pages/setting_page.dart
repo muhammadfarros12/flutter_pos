@@ -28,7 +28,7 @@ class _SettingPageState extends State<SettingPage> {
       appBar: AppBar(
         title: const Text('Setting'),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Row(
             children: [
@@ -103,23 +103,23 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           const Divider(),
-          FutureBuilder<List<OrderModel>>(
-              future: ProductLocalDatasource.instance.getOrderByIsSync(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Expanded(
-                    child: ListView.builder(itemBuilder: (context, index){
-                      return ListTile(
-                        title: Text(snapshot.data![index].paymentMethod.toString()),
-                      );
-                    },
-                    itemCount: snapshot.data!.length,
-                    ),
-                  );
-                } else {
-                  return SizedBox();
-                }
-              })
+          // FutureBuilder<List<OrderModel>>(
+          //     future: ProductLocalDatasource.instance.getOrderByIsSync(),
+          //     builder: (context, snapshot) {
+          //       if (snapshot.hasData) {
+          //         return Expanded(
+          //           child: ListView.builder(itemBuilder: (context, index){
+          //             return ListTile(
+          //               title: Text(snapshot.data![index].paymentMethod.toString()),
+          //             );
+          //           },
+          //           itemCount: snapshot.data!.length,
+          //           ),
+          //         );
+          //       } else {
+          //         return SizedBox();
+          //       }
+          //     })
         ],
       ),
     );

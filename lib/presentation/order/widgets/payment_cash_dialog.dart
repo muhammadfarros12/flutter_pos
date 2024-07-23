@@ -12,7 +12,7 @@ import 'package:flutter_pos/presentation/order/widgets/payment_success_dialog.da
 import '../../../components/buttons.dart';
 import '../../../components/spaces.dart';
 import '../../../constants/colors.dart';
-import '../bloc/bloc/order_bloc.dart';
+import '../bloc/order/order_bloc.dart';
 
 class PaymentCashDialog extends StatefulWidget {
   final int price;

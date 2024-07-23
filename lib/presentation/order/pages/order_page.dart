@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos/presentation/home/model/order_item.dart';
-import 'package:flutter_pos/presentation/order/bloc/bloc/order_bloc.dart';
+import 'package:flutter_pos/presentation/order/bloc/order/order_bloc.dart';
 import 'package:flutter_pos/presentation/order/widgets/payment_cash_dialog.dart';
+import 'package:flutter_pos/presentation/order/widgets/payment_qris_dialog.dart';
 
 import '../../../components/menu_button.dart';
 import '../../../components/spaces.dart';
@@ -47,6 +48,12 @@ class _OrderPageState extends State<OrderPage> {
         0,
         (previousValue, element) =>
             previousValue + element.product.price * element.quantity);
+  }
+
+  @override
+  void initState() {
+    // context.read<OrderBloc>().add(const OrderEvent.started());
+    super.initState();
   }
 
   @override
@@ -119,7 +126,12 @@ class _OrderPageState extends State<OrderPage> {
                     iconPath: Assets.icons.qrCode.path,
                     label: 'QRIS',
                     isActive: value == 2,
-                    onPressed: () => indexValue.value = 2,
+                    onPressed: () {
+                      indexValue.value = 2;
+                      context
+                          .read<OrderBloc>()
+                          .add(OrderEvent.addPaymentMethod('QRIS', orders));
+                    },
                   ),
                   const SpaceWidth(10.0),
                 ],
@@ -135,6 +147,12 @@ class _OrderPageState extends State<OrderPage> {
                       context: context,
                       builder: (context) =>
                           PaymentCashDialog(price: totalPrice));
+                } else if (indexValue.value == 2) {
+                  showDialog(
+                      context: context,
+                      builder: (context) => PaymentQrisDialog(
+                            price: totalPrice,
+                          ));
                 }
               },
             ),
